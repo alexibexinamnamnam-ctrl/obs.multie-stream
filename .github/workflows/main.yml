@@ -448,12 +448,14 @@ jobs:
           </body>
           </html>
           EOFHTML
+          sed -i 's/"ENABLE_FRONTEND_API": false/"ENABLE_FRONTEND_API": true/' CMakePresets.json
+          sed -i 's/"ENABLE_QT": false/"ENABLE_QT": true/' CMakePresets.json
           sed -i 's/option(ENABLE_FRONTEND_API \(.*\) OFF)/option(ENABLE_FRONTEND_API \1 ON)/' CMakeLists.txt
           sed -i 's/option(ENABLE_QT \(.*\) OFF)/option(ENABLE_QT \1 ON)/' CMakeLists.txt
           sed -i 's#src/plugin-main.c)#src/plugin-main.cpp)#' CMakeLists.txt
           sed -i 's/"name": "plugintemplate-for-obs"/"name": "obs-multistream-chat"/' buildspec.json
           sed -i 's/"displayName": "Plugin Template for OBS"/"displayName": "obs-multistream-chat"/' buildspec.json
-          grep -n "ENABLE_\|plugin-main" CMakeLists.txt
+          grep -n "ENABLE_\|plugin-main" CMakeLists.txt CMakePresets.json
           grep -n '"name"' buildspec.json
 
       - name: Konfigurieren
